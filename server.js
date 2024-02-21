@@ -34,3 +34,28 @@ cFonts.say('ACME Co Employee Tracker', {
     transitionGradient: false,
     env: 'node'
 });
+
+// Initialize ACME Co Employee Tracker Prompts
+function start(){
+    inquirer
+        .prompt({
+            name: 'action',
+            type: 'list',
+            message: 'Please Make Selection.',
+            choices: [
+                'View All Departments',
+                'View All Roles',
+                'View All Employees',
+                'Add a Department',
+                'Add a Role',
+                'Add an Employee',
+                'Update an Employee Role',
+                'Update Employee Manager',
+                'View Employees by Manager',
+                'View Employees by Department',
+                'Delete Departments, Roles, Employees',
+                'View Total Payroll by Department',
+                'Exit',
+            ]
+        })
+}
