@@ -56,6 +56,50 @@ function start(){
                 'Delete Departments, Roles, Employees',
                 'View Total Payroll by Department',
                 'Exit',
-            ]
+            ],
         })
-}
+        .then((answer) => {
+            switch(answer.action) {
+                case 'View All Departments':
+                    viewAllDepartments();
+                    break;
+                case 'View All Roles':
+                    viewAllRoles();
+                    break;
+                case 'View All Employees':
+                    viewAllEmployees();
+                    break;
+                case 'Add a Department':
+                    addDepartment();
+                    break;
+                case 'Add a Role':
+                    addRole();
+                    break;
+                case 'Add an Employee':
+                    addEmployee();
+                    break;
+                case 'Update an Employee Role':
+                    updateEmployeeRole();
+                    break;
+                case 'Update Employee Manager':
+                    updateEmployeeManager();
+                    break;
+                case 'View Employees by Manager':
+                    viewEmployeesByManager();
+                    break;
+                case 'View Employees by Department':
+                    viewEmployeesByDepartment();
+                    break;
+                case 'Delete Departments, Roles, Employees':
+                    deleteDepartmentsRolesEmployees();
+                    break;
+                case 'View Total Payroll by Department':
+                    viewTotalPayrollByDepartment();
+                    break;
+                case 'Exit':
+                    connection.end();
+                    console.log('Session Terminated.');
+                    break;
+            }
+        });
+};
