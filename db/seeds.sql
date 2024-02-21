@@ -1,7 +1,7 @@
 -- Place Data into Department Table
 INSERT INTO department (department_name)
 VALUES
-('Asset Management'),
+('Management'),
 ('Board of Directors'),
 ('Public Relations'),
 ('Finance'),
@@ -12,5 +12,20 @@ VALUES
 ('Quality Assurance'),
 ('Social Media'),
 ('Sales'),
-('Information Technology')
+('Information Technology');
 
+-- Place Data into Role Table
+INSERT INTO role (title, salary, department_id)
+VALUES
+('CEO', 800000.00, 1),
+('Chairman of the Board', 250000.00, 2),
+('PR Director', 200000.00, 3),
+('CFO', 600000.00, 4),
+('HR Director', 300000.00, 5),
+('Investor Relations Lead', 250000.00, 6),
+('Marketing Director', 400000.00, 7),
+('Legal Director' 650000.00, 8),
+('QA Director', 375000.00, 9),
+('Social Media Lead', 385000.00, 10),
+('Sales Manager', 155000.00, 11),
+('IT Director', 900000.00, 12);
