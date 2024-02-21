@@ -29,3 +29,19 @@ VALUES
 ('Social Media Lead', 385000.00, 10),
 ('Sales Manager', 155000.00, 11),
 ('IT Director', 900000.00, 12);
+
+-- Place Data into Employee Table
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES
+('Michael', 'Scott', 1, 1),
+('Dwight', 'Schrute', 2, 2),
+('Jim', 'Halpert', 3, 3),
+('Pam', 'Beesly', 4, 4),
+('Erin', 'Hannon', 5, 5),
+('Jan', 'Levinson', 6, 6),
+('Kevin', 'Malone', 7, 7),
+('Oscar', 'Martinez', 8, 8),
+('Angela', 'Martin', 9, 9),
+('Kelly', 'Kapoor', 10, 10),
+('Stanley', 'Hudson', 11, 11),
+('Darryl', 'Philbin', 12, 12);
