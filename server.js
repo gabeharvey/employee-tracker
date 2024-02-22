@@ -202,3 +202,77 @@ function addRole() {
             });
     });
 };
+
+// Allows Employee to be Added to Database
+function addEmployee() {
+    connection.query("SELECT id, title FROM roles", (error, results) => {
+        if (error) {
+            console.log(error);
+            return;
+        }
+        const roles = results.map(({id, title}) => ({
+            name: title,
+            value: id,
+        }));
+        connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee',
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    return;
+                }
+                const managers = results.map(({id, name}) => ({
+                    name,
+                    value: id,
+                }));
+                inquirer
+                    .prompt([
+                        {
+                            type: "input",
+                            name: "firstName",
+                            message: "Please Enter Employee First Name.",
+                        },
+                        {
+                            type: "input",
+                            name: "lastName",
+                            message: "Please Enter Emloyee Last Name.",
+                        },
+                        {
+                            type: "list",
+                            name: "roleId",
+                            message: "Please Select Role of Employee.",
+                            choices: roles,
+                        },
+                        {
+                            type: "list",
+                            name: "managerId",
+                            message: "Please Select Manager of Employee.",
+                            choices: [
+                                {name: "None", value: null},
+                                ...managers,
+                            ],
+                        },
+                    ])
+                    .then((answers) => {
+                        const emp = "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)";
+                        const place = [
+                            answers.firstName,
+                            answers.lastName,
+                            answers.roleId,
+                            answers.managerId,
+                        ];
+                        connection.query(emp, place, (error) => {
+                            if (error) {
+                                console.error(error);
+                                return;
+                            }
+                            console.log("Employee Added to Database!");
+                            start();
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+        );
+    });
+};
