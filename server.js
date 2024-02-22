@@ -103,3 +103,13 @@ function start(){
             }
         });
 };
+
+// Allows View of All Departments
+function viewAllDepartments() {
+    const query = 'SELECT * FROM department';
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        start();
+    });
+};
