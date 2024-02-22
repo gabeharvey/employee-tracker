@@ -2,6 +2,7 @@
 const mySQL = require("mysql12");
 const cFonts = require("cfonts");
 const inquirer = require("inquirer");
+const { deprecate } = require("util");
 
 // Establish MYSQL Connection
 const connection = mySQL.createConnection({
@@ -134,7 +135,7 @@ function viewAllEmployees() {
     });
 };
 
-// Allows to Add Department
+// Allows to Add Department to Database
 function addDepartment() {
     inquirer
         .prompt({
@@ -152,4 +153,52 @@ function addDepartment() {
                 console.log(answer.name);
             });
         });
+};
+
+// Allows to Add Role to Database
+function addRole() {
+    const query = "SELECT * FROM department";
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        inquirer
+            .prompt([
+                {
+                    type: "input",
+                    name: "title",
+                    message: "Please Enter New Role.",
+                },
+                {
+                    type: "input",
+                    name: "salary",
+                    message: "Please Enter Salary.",
+                },
+                {
+                    type: "list",
+                    name: "department",
+                    message: "Please Select Department for New Role.",
+                    choices: res.map(
+                        (department) => department.department_name
+                    ),
+                },
+            ])
+            .then((answers) => {
+                const department = res.find(
+                    (department) => department.name == answers.department
+                );
+                const query = "INSERT INTO role SET ?";
+                connection.query(
+                    query,
+                    {
+                        title: answers.title,
+                        salary: answers.salary,
+                        department_id: department,
+                    },
+                    (err, res) => {
+                        if (err) throw err;
+                        console.log(`Added ${answers.title} Role with Salary of ${answers.salary} to ${answers.department} Department in Database.`);
+                        start();
+                    }
+                );
+            });
+    });
 };
