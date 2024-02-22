@@ -133,3 +133,23 @@ function viewAllEmployees() {
         start();
     });
 };
+
+// Allows to Add Department
+function addDepartment() {
+    inquirer
+        .prompt({
+            type: "input",
+            name: "name",
+            message: "Please Enter New Department Name."
+        })
+        .then((answer) => {
+            console.log(answer.name);
+            const query = `INSERT INTO department (department_name) VALUES ("${answer.name}")`;
+            connection.query(query, (err, res) => {
+                if (err) throw err;
+                console.log(`Added ${answer.name} Department to Database.`);
+                start();
+                console.log(answer.name);
+            });
+        });
+};
