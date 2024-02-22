@@ -265,7 +265,7 @@ function addEmployee() {
                                 console.error(error);
                                 return;
                             }
-                            console.log("Employee Added to Database!");
+                            console.log("Employee Added to Database.");
                             start();
                         });
                     })
@@ -274,5 +274,53 @@ function addEmployee() {
                     });
             }
         );
+    });
+};
+
+// Allows Update to Employee Role
+function updateEmployeeRole() {
+    const queryEmployees ="SELECT employee.id, employee.first_name, employee.last_name, roles.title FROM employee LEFT JOIN roles ON employee.role_id = roles.id";
+    const queryRoles ="SELECT * FROM roles";
+    connection.query(queryEmployees, (err, resEmployees) => {
+        if (err) throw err;
+        connection.query(queryRoles, (err, resRoles) => {
+            if (err) throw err;
+            inquirer
+                .prompt([
+                    {
+                        type: "list",
+                        name: "employee",
+                        message: "Please Select the Employee You Wish to Update.",
+                        choices: resEmployees.map(
+                            (employee) =>
+                                `${employee.first_name} ${employee.last_name}`
+                        ),
+                    },
+                    {
+                        type: "list",
+                        name: "role",
+                        message: "Please Select the New Role of the Employee.",
+                        choices: resRoles.map((role) => role.title),
+                    },
+                ])
+                .then((answers) => {
+                    const employee = resEmployees.find(
+                        (employee) => `${employee.first_name} ${employee.last_name}` == answers.employee
+                    );
+                    const role = resRoles.find(
+                        (role) => role.title == answers.role
+                    );
+                    const query ="UPDATE employee SET role_id = ? WHERE id = ?";
+                    connection.query(
+                        query,
+                        [role.id, employee.id],
+                        (err, res) => {
+                            if (err) throw err;
+                            console.log(`Updated the Role of ${employee.first_name} ${employee.last_name} to ${role.title} in the Database.`);
+                            start();
+                        }
+                    );
+                });
+        });
     });
 };
