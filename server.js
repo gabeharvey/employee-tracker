@@ -444,8 +444,33 @@ function viewEmployeesByDepartment() {
     });
 };
 
-// Allows Delete Departments, Role, Employee
-
+// Allows Delete Department, Role, Employee
+function deleteDepartmentsRolesEmployees() {
+    inquirer
+        .prompt({
+            type: "list",
+            name: "data",
+            message: "This will Delete Employee, Role, or Department from Database.",
+            choices: ["Employee", "Role", "Department"],
+        })
+        .then((answer) => {
+            switch (answer.data) {
+                case "Employee":
+                    deleteEmployee();
+                    break;
+                case "Role":
+                    deleteRole();
+                    break;
+                case "Department":
+                    deleteDepartment();
+                    break;
+                default:
+                    console.log(`Following Entry is NOT Valid. ${answer.data}`);
+                    start();
+                    break;
+            }
+        });
+};
 
 // Allows View Total Payroll by Department
 
