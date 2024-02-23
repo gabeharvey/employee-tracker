@@ -511,7 +511,37 @@ function deleteDepartment() {
 };
 
 // Allows Delete Role
-
+function deleteRole() {
+    const query = "SELECT * FROM roles";
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        const choices = res.map((role) => ({
+            name: `${role.title} (${role.id}) - ${role.salary}`,
+            value: role.id,
+        }));
+        choices.push({ name: "Go Back", value: null });
+        inquirer
+            .prompt({
+                type: "list",
+                name: "roleId",
+                message: "Please Select Role to be Deleted.",
+                choices: choices,
+            })
+            .then((answer) => {
+                if (answer.roleId == null) {
+                    deleteDepartmentsRolesEmployees();
+                    return;
+                }
+                const query = "DELETE FROM roles WHERE id = ?";
+                connection.query(query, [answer.roleId], (err, res) => {
+                    if (err) throw err;
+                    console.log(`Deleted ${answer.roleId} Role from Database.
+                    `);
+                    start();
+                });
+            });
+    });
+};
 
 // Allows Delete Employee
 
