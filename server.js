@@ -185,7 +185,7 @@ function addRole() {
                 const department = res.find(
                     (department) => department.name == answers.department
                 );
-                const query = "INSERT INTO role SET ?";
+                const query = "INSERT INTO roles SET ?";
                 connection.query(
                     query,
                     {
@@ -403,7 +403,7 @@ function viewEmployeesByManager() {
       FROM 
         employee e
         INNER JOIN roles r ON e.role_id = r.id
-        INNER JOIN departments d ON r.department_id = d.id
+        INNER JOIN department d ON r.department_id = d.id
         LEFT JOIN employee m ON e.manager_id = m.id
       ORDER BY 
         manager_name, 
@@ -435,7 +435,7 @@ function viewEmployeesByManager() {
 
 // Allows View of Employees by Department
 function viewEmployeesByDepartment() {
-    const query ="SELECT departments.department_name, employee.first_name, employee.last_name FROM employee INNER JOIN roles ON employee.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id ORDER BY departments.department_name ASC";
+    const query ="SELECT department.department_name, employee.first_name, employee.last_name FROM employee INNER JOIN roles ON employee.role_id = roles.id INNER JOIN department ON roles.department_id = department.id ORDER BY department.department_name ASC";
     connection.query(query, (err, res) => {
         if (err) throw err;
         console.log("\nList of Employees by Department.");
@@ -450,19 +450,19 @@ function deleteDepartmentsRolesEmployees() {
         .prompt({
             type: "list",
             name: "data",
-            message: "This will Delete Employee, Role, or Department from Database.",
-            choices: ["Employee", "Role", "Department"],
+            message: "This will Delete Department, Role, or Employee from Database.",
+            choices: ["Department", "Role", "Employee"],
         })
         .then((answer) => {
             switch (answer.data) {
-                case "Employee":
-                    deleteEmployee();
+                case "Department":
+                    deleteDepartment();
                     break;
                 case "Role":
                     deleteRole();
                     break;
-                case "Department":
-                    deleteDepartment();
+                case "Employee":
+                    deleteEmployee();
                     break;
                 default:
                     console.log(`Following Entry is NOT Valid. ${answer.data}`);
@@ -471,6 +471,50 @@ function deleteDepartmentsRolesEmployees() {
             }
         });
 };
+
+// Allows Delete Department
+function deleteDepartment() {
+    const query = "SELECT * FROM department";
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        const departmentChoices = res.map((department) => ({
+            name: department.department_name,
+            value: department.id,
+        }));
+        inquirer
+            .prompt({
+                type: "list",
+                name: "departmentId",
+                message: "Please Select Department to Delete from Database",
+                choices: [
+                    ...departmentChoices,
+                    { name: "Go Back", value: "back" },
+                ],
+            })
+            .then((answer) => {
+                if (answer.departmentId == "back") {
+                    deleteDepartmentsRolesEmployees();
+                } else {
+                    const query = "DELETE FROM department WHERE id = ?";
+                    connection.query(
+                        query,
+                        [answer.departmentId],
+                        (err, res) => {
+                            if (err) throw err;
+                            console.log(`Deleted ${answer.departmentId} Department ID from Database.`);
+                            start();
+                        }
+                    );
+                }
+            });
+    });
+};
+
+// Allows Delete Role
+
+
+// Allows Delete Employee
+
 
 // Allows View Total Payroll by Department
 
