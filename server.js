@@ -601,16 +601,16 @@ function viewTotalPayrollByDepartment() {
             .then((answer) => {
                 const query =
                     `SELECT 
-                    departments.department_name AS department,
+                    department.department_name AS department,
                     SUM(roles.salary) AS total_salary
                   FROM 
-                    departments
-                    INNER JOIN roles ON departments.id = roles.department_id
+                    department
+                    INNER JOIN roles ON department.id = roles.department_id
                     INNER JOIN employee ON roles.id = employee.role_id
                   WHERE 
-                    departments.id = ?
+                    department.id = ?
                   GROUP BY 
-                    departments.id;`;
+                    department.id;`;
                 connection.query(query, [answer.departmentId], (err, res) => {
                     if (err) throw err;
                     const totalSalary = res[0].total_salary;
