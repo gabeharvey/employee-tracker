@@ -21,6 +21,8 @@
 
 ## Credits
 
+Tutor Assistance provided by Michell Brito
+
 Company Department Names Source: https://simplicable.com/en/company-departments
 
 ## Screenshots
