@@ -116,7 +116,7 @@ function viewAllDepartments() {
 
 // Allows View of All Roles
 function viewAllRoles() {
-    const query = "SELECT role.title, role.id, department.department_name, role.salary from role join department on role.department_id = department.id";
+    const query = "SELECT roles.title, roles.id, department.department_name, roles.salary from roles join department on roles.department_id = department.id";
     connection.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
@@ -198,6 +198,9 @@ function addRole() {
                         start();
                     }
                 );
+            })
+            .catch((error) => {
+                console.error(error);
             });
     });
 };

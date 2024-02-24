@@ -15,7 +15,7 @@ VALUES
 ("Information Technology");
 
 -- Place Data into Role Table
-INSERT INTO role (title, salary, department_id)
+INSERT INTO roles (title, salary, department_id)
 VALUES
 ("CEO", 800000.00, 1),
 ("Chairman of the Board", 250000.00, 2),
