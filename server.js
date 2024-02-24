@@ -7,9 +7,8 @@ const { deprecate } = require("util");
 // Establish MYSQL Connection
 const connection = mySQL.createConnection({
     host: "localhost",
-    port: 3001,
     user: "root",
-    password: "",
+    password: "BlackFrost1!",
     database: "emptrack_db",
 });
 
@@ -279,8 +278,8 @@ function addEmployee() {
 
 // Allows Update to Employee Role
 function updateEmployeeRole() {
-    const queryEmployees ="SELECT employee.id, employee.first_name, employee.last_name, roles.title FROM employee LEFT JOIN roles ON employee.role_id = roles.id";
-    const queryRoles ="SELECT * FROM roles";
+    const queryEmployees = "SELECT employee.id, employee.first_name, employee.last_name, roles.title FROM employee LEFT JOIN roles ON employee.role_id = roles.id";
+    const queryRoles = "SELECT * FROM roles";
     connection.query(queryEmployees, (err, resEmployees) => {
         if (err) throw err;
         connection.query(queryRoles, (err, resRoles) => {
@@ -375,7 +374,7 @@ function updateEmployeeManager() {
                         (employee) =>
                             `${employee.first_name} ${employee.last_name}` == answers.manager
                     );
-                    const query ="UPDATE employee SET manager_id = ? WHERE id = ? AND role_id IN (SELECT id FROM roles WHERE department_id = ?)";
+                    const query = "UPDATE employee SET manager_id = ? WHERE id = ? AND role_id IN (SELECT id FROM roles WHERE department_id = ?)";
                     connection.query(
                         query,
                         [manager.id, employee.id, department.id],
@@ -435,7 +434,7 @@ function viewEmployeesByManager() {
 
 // Allows View of Employees by Department
 function viewEmployeesByDepartment() {
-    const query ="SELECT department.department_name, employee.first_name, employee.last_name FROM employee INNER JOIN roles ON employee.role_id = roles.id INNER JOIN department ON roles.department_id = department.id ORDER BY department.department_name ASC";
+    const query = "SELECT department.department_name, employee.first_name, employee.last_name FROM employee INNER JOIN roles ON employee.role_id = roles.id INNER JOIN department ON roles.department_id = department.id ORDER BY department.department_name ASC";
     connection.query(query, (err, res) => {
         if (err) throw err;
         console.log("\nList of Employees by Department.");
@@ -575,6 +574,45 @@ function deleteEmployee() {
 };
 
 // Allows View Total Payroll by Department
-
+function viewTotalPayrollByDepartment() {
+    const query = "SELECT * FROM department";
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        const departmentChoices = res.map((department) => ({
+            name: department.department_name,
+            value: department.id,
+        }));
+        inquirer
+            .prompt({
+                type: "list",
+                name: "departmentId",
+                message: "Please Select Department to View Total Payroll.",
+                choices: departmentChoices,
+            })
+            .then((answer) => {
+                const query =
+                    `SELECT 
+                    departments.department_name AS department,
+                    SUM(roles.salary) AS total_salary
+                  FROM 
+                    departments
+                    INNER JOIN roles ON departments.id = roles.department_id
+                    INNER JOIN employee ON roles.id = employee.role_id
+                  WHERE 
+                    departments.id = ?
+                  GROUP BY 
+                    departments.id;`;
+                connection.query(query, [answer.departmentId], (err, res) => {
+                    if (err) throw err;
+                    const totalSalary = res[0].total_salary;
+                    console.log(`$${totalSalary} is the Total Payroll for this Department.`);
+                    start();
+                });
+            });
+    });
+};
 
 // Allows Exit of Application
+process.on("exit", () => {
+    connection.end();
+});
