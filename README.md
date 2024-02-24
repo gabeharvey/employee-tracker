@@ -23,6 +23,8 @@
 
 Tutor Assistance provided by Michell Brito
 
+Guidance Provided by ASKBCS Learning Assistant: "Chipo" (Username: cphiri)
+
 Company Department Names Source: https://simplicable.com/en/company-departments
 
 ## Screenshots
