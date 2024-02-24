@@ -535,8 +535,7 @@ function deleteRole() {
                 const query = "DELETE FROM roles WHERE id = ?";
                 connection.query(query, [answer.roleId], (err, res) => {
                     if (err) throw err;
-                    console.log(`Deleted ${answer.roleId} Role from Database.
-                    `);
+                    console.log(`Deleted ${answer.roleId} Role from Database.`);
                     start();
                 });
             });
@@ -544,7 +543,36 @@ function deleteRole() {
 };
 
 // Allows Delete Employee
-
+function deleteEmployee() {
+    const query = "SELECT * FROM employee";
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        const employeeList = res.map((employee) => ({
+            name: `${employee.first_name} ${employee.last_name}`,
+            value: employee.id,
+        }));
+        employeeList.push({ name: "Go Back", value: "back" });
+        inquirer
+            .prompt({
+                type: "list",
+                name: "id",
+                message: "Please Select Employee to Delete.",
+                choices: employeeList,
+            })
+            .then((answer) => {
+                if (answer.id == "back") {
+                    deleteDepartmentsRolesEmployees();
+                    return;
+                }
+                const query = "DELETE FROM employee WHERE id = ?";
+                connection.query(query, [answer.id], (err, res) => {
+                    if (err) throw err;
+                    console.log(`Deleted Employee ${answer.id} from the Database.`);
+                    start();
+                });
+            });
+    });
+};
 
 // Allows View Total Payroll by Department
 
