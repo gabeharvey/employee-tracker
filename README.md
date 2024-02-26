@@ -69,7 +69,7 @@ View Total Payroll of Department Screen:
 
 ## Video
 
-Main Functionality of Application: https://drive.google.com/file/d/1HtBZ2bHPeUquF-dBmRQVKvpJLFC3xzL2/view
+Main Functionality of Application: https://drive.google.com/file/d/1zVyEiilYYt2yV4kVIPeHklvfd8qJcbSA/view
 
 Extra Credit Functionality: https://drive.google.com/file/d/1ZhZxdcT7jb4vUfSVqk12C-LAey3oXVy2/view
 
