@@ -57,7 +57,7 @@ View All Employees Screen:
 
 View Employees by Manager Screen:
 
-![Alt Text](./assets/view-employees-bymgr-screen.png)
+![Alt Text](./assets/view-employeesbymgr-screen.png)
 
 View Employees by Department Screen:
 
