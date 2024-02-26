@@ -28,7 +28,9 @@ VALUES
 ("QA Director", 375000.00, 9),
 ("Social Media Lead", 385000.00, 10),
 ("Sales Manager", 155000.00, 11),
-("IT Director", 900000.00, 12);
+("IT Director", 900000.00, 12),
+("International Relations", 350000.00, 1),
+("Vice President", 500000.00, 1);
 
 -- Place Data into Employee Table
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
@@ -44,4 +46,6 @@ VALUES
 ("Angela", "Martin", 9, 1),
 ("Kelly", "Kapoor", 10, 1),
 ("Stanley", "Hudson", 11, 1),
-("Darryl", "Philbin", 12, 1);
+("Darryl", "Philbin", 12, 1),
+("Gabe", "Lewis", 13, 1),
+("Ryan", "Howard", 14, 1);
