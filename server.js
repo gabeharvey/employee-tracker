@@ -1,6 +1,7 @@
 // Packages Required for this Application
 const mySQL = require("mysql2");
 const inquirer = require("inquirer");
+const cFonts = require("cfonts");
 
 // Establish MYSQL Connection
 const connection = mySQL.createConnection({
@@ -9,6 +10,23 @@ const connection = mySQL.createConnection({
     password: "BlackFrost1!",
     database: "emptrack_db",
 });
+
+// Apply CFonts Properties to Application
+cFonts.say("ACME Co Employee Tracker", {
+    font: "chrome",
+    align: "left",
+    colors: ["gray"],
+    background: "transparent",
+    lineHeight: 1,
+    letterSpacing: 1,
+    space: true,
+    maxLength: "0",
+    gradient: false,
+    independentGradient: false,
+    transitionGradient: false,
+    env: "node"
+});
+
 
 // Database Connection
 connection.connect((err) => {
