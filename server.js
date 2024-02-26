@@ -1,8 +1,6 @@
 // Packages Required for this Application
 const mySQL = require("mysql2");
-const cFonts = require("cfonts");
 const inquirer = require("inquirer");
-const { deprecate } = require("util");
 
 // Establish MYSQL Connection
 const connection = mySQL.createConnection({
@@ -18,22 +16,6 @@ connection.connect((err) => {
     console.log("Connected to ACME Co Employee Tracker Database.");
     start();
 });
-
-// Apply CFonts Properties to Application
-// cFonts.say("ACME Co Employee Tracker", {
-//     font: "chrome",
-//     align: "center",
-//     colors: ["gray"],
-//     background: ["black"],
-//     lineHeight: 1,
-//     letterSpacing: 1,
-//     space: true,
-//     maxLength: "0",
-//     gradient: false,
-//     independentGradient: false,
-//     transitionGradient: false,
-//     env: "node"
-// });
 
 // Initialize ACME Co Employee Tracker Prompts
 function start(){

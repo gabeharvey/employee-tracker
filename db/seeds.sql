@@ -33,15 +33,15 @@ VALUES
 -- -- -- Place Data into Employee Table
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-("Michael", "Scott", 1, 1),
-("Dwight", "Schrute", 2, 2),
-("Jim", "Halpert", 3, 3),
-("Pam", "Beesly", 4, 4),
-("Erin", "Hannon", 5, 5),
-("Jan", "Levinson", 6, 6),
-("Kevin", "Malone", 7, 7),
-("Oscar", "Martinez", 8, 8),
-("Angela", "Martin", 9, 9),
-("Kelly", "Kapoor", 10, 10),
-("Stanley", "Hudson", 11, 11),
-("Darryl", "Philbin", 12, 12);
+("Michael", "Scott", 1, 2),
+("Dwight", "Schrute", 2, 5),
+("Jim", "Halpert", 3, 1),
+("Pam", "Beesly", 4, 1),
+("Erin", "Hannon", 5, 1),
+("Jan", "Levinson", 6, 1),
+("Kevin", "Malone", 7, 1),
+("Oscar", "Martinez", 8, 1),
+("Angela", "Martin", 9, 1),
+("Kelly", "Kapoor", 10, 1),
+("Stanley", "Hudson", 11, 1),
+("Darryl", "Philbin", 12, 1);
