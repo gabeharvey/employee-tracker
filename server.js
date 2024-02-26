@@ -27,7 +27,6 @@ cFonts.say("ACME Co Employee Tracker", {
     env: "node"
 });
 
-
 // Database Connection
 connection.connect((err) => {
     if (err) throw err;
