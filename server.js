@@ -508,7 +508,7 @@ function deleteDepartment() {
                         [answer.departmentId],
                         (err, res) => {
                             if (err) throw err;
-                            console.log(`Deleted ${answer.departmentId} Department ID from Database.`);
+                            console.log(`Deleted Department with Department ID ${answer.departmentId} from Database.`);
                             start();
                         }
                     );
@@ -542,7 +542,7 @@ function deleteRole() {
                 const query = "DELETE FROM roles WHERE id = ?";
                 connection.query(query, [answer.roleId], (err, res) => {
                     if (err) throw err;
-                    console.log(`Deleted ${answer.roleId} Role from Database.`);
+                    console.log(`Deleted Role with Role ID ${answer.roleId} from Database.`);
                     start();
                 });
             });

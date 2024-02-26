@@ -22,7 +22,7 @@ VALUES
 ("PR Director", 200000.00, 3),
 ("CFO", 600000.00, 4),
 ("HR Director", 300000.00, 5),
-("Investor Relations Lead", 250000.00, 6),
+("Investor Relations Lead", 450000.00, 6),
 ("Marketing Director", 400000.00, 7),
 ("Legal Director", 650000.00, 8),
 ("QA Director", 375000.00, 9),
